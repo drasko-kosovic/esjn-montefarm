@@ -1,5 +1,4 @@
 <mat-form-field class="container-search">
-
   <mat-icon matPrefix>search</mat-icon>
 
   <input type="search" (keyup)="doFilter(box.value)" #box matInput placeholder="" />
@@ -17,16 +16,40 @@
   <fa-icon icon="plus"></fa-icon>
   <span>Nova Specifikacija</span>
 </button>
-<button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="nadji-fajl" type="button"  matTooltip="Nadji Excel fajl" mat-raised-button (click)="fileInput.click()"><mat-icon>attachment</mat-icon></button>
+<button
+  *jhiHasAnyAuthority="'ROLE_ADMIN'"
+  id="nadji-fajl"
+  type="button"
+  matTooltip="Nadji Excel fajl"
+  mat-raised-button
+  (click)="fileInput.click()"
+>
+  <mat-icon>attachment</mat-icon>
+</button>
 <!--  <input class="form-control" type="file" #fileInput />-->
-<input hidden  #fileInput type="file" id="file">
+<input hidden #fileInput type="file" id="file" />
 
-<button id="UnseiExcel" *jhiHasAnyAuthority="'ROLE_ADMIN'" mat-raised-button
-        color="warn" (click)="uploadFile()" matTooltip="Unesi Excel fajl">Unesi Excel</button>
-<button  *jhiHasAnyAuthority="'ROLE_ADMIN'" mat-raised-button color="accent" matTooltip="Napravi formu za unos Excel" (click)="DownloadExcel()"><mat-icon>download</mat-icon></button>
+<button
+  id="UnseiExcel"
+  *jhiHasAnyAuthority="'ROLE_ADMIN'"
+  mat-raised-button
+  color="warn"
+  (click)="uploadFile()"
+  matTooltip="Unesi Excel fajl"
+>
+  Unesi Excel
+</button>
+<button
+  *jhiHasAnyAuthority="'ROLE_ADMIN'"
+  mat-raised-button
+  color="accent"
+  matTooltip="Napravi formu za unos Excel"
+  (click)="DownloadExcel()"
+>
+  <mat-icon>download</mat-icon>
+</button>
 
 <mat-card class="example-container mat-elevation-z24">
-
   <table
     class="example-container mat-elevation-z8"
     mat-table
@@ -35,7 +58,7 @@
     [dataSource]="dataSource"
     matSort
     matSortStart="desc"
-     >
+  >
     <ng-container matColumnDef="sifra postupka">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Sifra Postupka</th>
       <td mat-cell *matCellDef="let element">{{ element.sifraPostupka }}</td>
@@ -64,24 +87,24 @@
     </ng-container>
     <ng-container matColumnDef="jacina lijeka">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Jacina Lijeka</th>
-      <td mat-cell *matCellDef="let element">{{ element.jacinaLijeka}}</td>
+      <td mat-cell *matCellDef="let element">{{ element.jacinaLijeka }}</td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
     <ng-container matColumnDef="trazena kolicina">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Kolicina</th>
-      <td mat-cell *matCellDef="let element">{{ element.trazenaKolicina}}</td>
+      <td mat-cell *matCellDef="let element">{{ element.trazenaKolicina }}</td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
-      <ng-container matColumnDef="pakovanje">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pakovanje</th>
-        <td mat-cell *matCellDef="let element">{{ element.pakovanje}}</td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
-        <ng-container matColumnDef="procijenjena vrijednost">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Procijenjena Vrijednost</th>
-          <td mat-cell *matCellDef="let element">{{ element.procijenjenaVrijednost}}</td>
-          <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
+    <ng-container matColumnDef="pakovanje">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pakovanje</th>
+      <td mat-cell *matCellDef="let element">{{ element.pakovanje }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="procijenjena vrijednost">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Procijenjena Vrijednost</th>
+      <td mat-cell *matCellDef="let element">{{ element.procijenjenaVrijednost | number: '1.2-2' }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
 
     <ng-container matColumnDef="delete" stickyEnd>
       <th mat-header-cell *matHeaderCellDef></th>
@@ -93,7 +116,9 @@
     <ng-container matColumnDef="edit" stickyEnd>
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon *jhiHasAnyAuthority="'ROLE_ADMIN'" id="edit" type="submit" [routerLink]="['/specifikacije', element.id, 'edit']">edit</mat-icon>
+        <mat-icon *jhiHasAnyAuthority="'ROLE_ADMIN'" id="edit" type="submit" [routerLink]="['/specifikacije', element.id, 'edit']"
+          >edit</mat-icon
+        >
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
