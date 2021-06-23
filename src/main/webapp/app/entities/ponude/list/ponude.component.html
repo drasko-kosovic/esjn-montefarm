@@ -4,7 +4,6 @@
 <!--  <input type="search" (keyup)="doFilter(box.value)" #box matInput placeholder="Ponudjac" />-->
 <!--</mat-form-field>-->
 
-
 <button
   *jhiHasAnyAuthority="'ROLE_ADMIN'"
   id="jh-create-entity"
@@ -108,7 +107,7 @@
     <ng-container matColumnDef="ponudjena vrijednost">
       <th mat-header-cell *matHeaderCellDef>Ponudjena Cijena</th>
       <td mat-cell *matCellDef="let element">{{ element.ponudjenaVrijednost | number: '1.2-2' }}</td>
-      <td mat-footer-cell *matFooterCellDef> Total: {{ calculateTotal() | number: '1.2-2' }}</td>
+      <td mat-footer-cell *matFooterCellDef>Ukupno: {{ getTotalCost() | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="rok isporuke">
       <th mat-header-cell *matHeaderCellDef>Rok Isporuke</th>
@@ -150,14 +149,6 @@
   </table>
   <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
 </mat-card>
-
-
-
-
-
-
-
-
 
 <ng-template #content let-modal>
   <div class="modal-header">

@@ -45,10 +45,6 @@ export class PonudeComponent implements AfterViewInit, OnChanges, OnInit {
     'select',
   ];
 
-
-
-
-
   public dataSource = new MatTableDataSource<IPonude>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -64,20 +60,21 @@ export class PonudeComponent implements AfterViewInit, OnChanges, OnInit {
     protected modalService: NgbModal,
     private accountService: AccountService
   ) {}
-  public calculateTotal():any {
-    return this.ponude?.reduce((accum, curr) => accum + curr.ponudjenaVrijednost!, 0);
+  getTotalCost(): any {
+    return this.ponude?.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
   }
   public getSifraPostupka(): void {
     this.ponudeService.findSiftraPostupak(this.postupak).subscribe((res: IPonude[]) => {
       this.dataSource.data = res;
+      this.ponude = res;
     });
   }
 
   public getSifraPonude(): void {
     this.ponudeService.findSiftraPonude(this.nadjiPonudjaca).subscribe((res: IPonude[]) => {
       this.dataSource.data = res;
-      this.dataSource.filter = this.nadjiPonudjaca.trim().toLocaleLowerCase();
-      this.ukupnaPonudjena = this.dataSource.filteredData.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
+      this.ponude = res;
+      this.getTotalCost();
     });
   }
   public getSifraPostupkaPonudePonudjaci(): void {
@@ -124,8 +121,6 @@ export class PonudeComponent implements AfterViewInit, OnChanges, OnInit {
   }
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    // this.getSifraPostupkaPonudePonudjaci();
-    // this.getSifraPostupkaPonudes();
   }
 
   uploadFile(): any {
